@@ -8,6 +8,9 @@ function validarContrasenas(password, passwordRepetida) {
   }
 
   if (password !== passwordRepetida) {
+    console.log("Contraseña", password);
+    console.log("Repetir Contraseña", passwordRepetida);
+    
     alert("Las contraseñas no coinciden.");
     return false;
   }

@@ -10,8 +10,8 @@ document.addEventListener("DOMContentLoaded", function () {
     const correo = document.getElementById("correo").value.trim();
     const telefono = document.getElementById("telefono").value.trim();
     const especialidad = document.getElementById("especialidad").value;
-    const password = document.getElementById("password").value;
-    const passwordRepetida = document.getElementById("passwordRepetida").value;
+    const password = document.getElementById("password1").value;
+    const passwordRepetida = document.getElementById("passwordRepetida1").value;
     const tablaBody = document.getElementById("tableDoctores");
     if (
       !rut ||
@@ -25,6 +25,7 @@ document.addEventListener("DOMContentLoaded", function () {
       alert("Por favor completa todos los campos.");
       return;
     }
+    
     if (!validarContrasenas(password, passwordRepetida)) {
       return;
     }
