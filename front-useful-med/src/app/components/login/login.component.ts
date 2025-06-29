@@ -28,6 +28,7 @@ export class LoginComponent {
       console.log('Enviando login:', email, password);
       this.router.navigate(['/home']);
       alert("Inicio de sesión exitoso");
+      this.loginForm.reset(); 
     } else {
       console.log('Formulario inválido');
       this.loginForm.markAllAsTouched();
