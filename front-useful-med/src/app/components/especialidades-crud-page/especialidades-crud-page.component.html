@@ -1,0 +1,46 @@
+<div class="container py-5">
+  <h2 class="mb-4 text-center">Mantenedor de Especialidades</h2>
+
+  <form class="row g-3 mb-4" (ngSubmit)="agregarEspecialidad()">
+    <div class="col-md-8">
+      <input
+        type="text"
+        class="form-control"
+        placeholder="Nombre de la especialidad"
+        [(ngModel)]="nuevaEspecialidad"
+        name="especialidad"
+        required
+      />
+    </div>
+    <div class="col-md-4">
+      <button class="btn btn-primary w-100" type="submit">Agregar</button>
+    </div>
+  </form>
+
+  <div class="table-responsive">
+    <table class="table">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Especialidad</th>
+          <th>Acción</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let especialidad of especialidades; let i = index">
+          <td>{{ i + 1 }}</td>
+          <td>{{ especialidad }}</td>
+          <td>
+            <button
+              type="button"
+              class="btn btn-sm btn-outline-danger"
+              (click)="eliminarEspecialidad(i)"
+            >
+              Eliminar
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

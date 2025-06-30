@@ -26,9 +26,18 @@ export class LoginComponent {
     if (this.loginForm.valid) {
       const { email, password } = this.loginForm.value;
       console.log('Enviando login:', email, password);
-      this.router.navigate(['/home']);
       alert("Inicio de sesión exitoso");
       this.loginForm.reset(); 
+      if(email.includes('admin')) {
+        console.log('Redirigiendo a admin');
+        this.router.navigate(['/admin']);
+      }else if(email.includes('doctor')) {
+        console.log('Redirigiendo a doctor');
+        this.router.navigate(['/doctor']);
+      }else if(email.includes('patient')) {
+        console.log('Redirigiendo a patient');
+        this.router.navigate(['/patient']);
+      }
     } else {
       console.log('Formulario inválido');
       this.loginForm.markAllAsTouched();
