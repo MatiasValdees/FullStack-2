@@ -8,6 +8,8 @@ import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.compon
 import { AdminComponent } from './components/admin/admin.component';
 import { DoctorLayoutComponent } from './layouts/doctor-layout/doctor-layout.component';
 import { DoctorComponent } from './components/doctor/doctor.component';
+import { PacienteCrudPageComponent } from './components/paciente-crud-page/paciente-crud-page.component';
+import { AgendaComponent } from './components/agenda/agenda.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -28,8 +30,8 @@ export const routes: Routes = [
     path: 'doctor',
     component: DoctorLayoutComponent,
     children: [
-      { path: 'pacientes-crud', component: DoctorCrudPageComponent },
-      { path: 'agenda',component: EspecialidadesCrudPageComponent},
+      { path: 'pacientes-crud', component: PacienteCrudPageComponent },
+      { path: 'mi-agenda',component: AgendaComponent},
       { path: 'cambiar-password', component: ChangePasswordPageComponent },
       { path: '', redirectTo: 'home', pathMatch: 'full' },
       { path: 'home', component: DoctorComponent },

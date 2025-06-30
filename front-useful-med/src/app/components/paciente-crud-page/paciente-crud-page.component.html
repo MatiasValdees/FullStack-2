@@ -1,0 +1,165 @@
+<div class="container py-5">
+  <h2 class="mb-4 text-center">Mantenedor de Pacientes</h2>
+
+  <form #formPaciente="ngForm" class="row g-3 mb-4" (ngSubmit)="agregarPaciente()">
+    <div class="col-md-4">
+      <input
+        type="text"
+        name="rut"
+        [(ngModel)]="nuevoPaciente.rut"
+        class="form-control"
+        placeholder="RUT"
+        maxlength="10"
+        minlength="9"
+        required
+        #rut="ngModel"
+      />
+      <div *ngIf="rut.invalid && rut.touched" class="text-danger small">
+        RUT es requerido (9-10 caracteres).
+      </div>
+    </div>
+
+    <div class="col-md-4">
+      <input
+        type="text"
+        name="nombres"
+        [(ngModel)]="nuevoPaciente.nombres"
+        class="form-control"
+        placeholder="Nombres"
+        required
+        #nombres="ngModel"
+      />
+      <div *ngIf="nombres.invalid && nombres.touched" class="text-danger small">
+        Nombres es requerido.
+      </div>
+    </div>
+
+    <div class="col-md-4">
+      <input
+        type="text"
+        name="apellido"
+        [(ngModel)]="nuevoPaciente.apellido"
+        class="form-control"
+        placeholder="Apellido"
+        required
+        #apellido="ngModel"
+      />
+      <div *ngIf="apellido.invalid && apellido.touched" class="text-danger small">
+        Apellido es requerido.
+      </div>
+    </div>
+
+    <div class="col-md-4">
+      <input
+        type="email"
+        name="correo"
+        [(ngModel)]="nuevoPaciente.correo"
+        class="form-control"
+        placeholder="Correo electrónico"
+        required
+        #correo="ngModel"
+      />
+      <div *ngIf="correo.invalid && correo.touched" class="text-danger small">
+        Correo válido es requerido.
+      </div>
+    </div>
+
+    <div class="col-md-4">
+      <input
+        type="tel"
+        name="telefono"
+        [(ngModel)]="nuevoPaciente.telefono"
+        class="form-control"
+        placeholder="Teléfono"
+        minlength="6"
+        maxlength="9"
+        required
+        #telefono="ngModel"
+      />
+      <div *ngIf="telefono.invalid && telefono.touched" class="text-danger small">
+        Teléfono válido es requerido (6-9 dígitos).
+      </div>
+    </div>
+
+    <div class="col-md-4">
+      <input
+        type="password"
+        name="contrasena"
+        [(ngModel)]="nuevoPaciente.contrasena"
+        class="form-control"
+        placeholder="Contraseña"
+        required
+        #contrasena="ngModel"
+      />
+      <div *ngIf="contrasena.invalid && contrasena.touched" class="text-danger small">
+        Contraseña es requerida.
+      </div>
+    </div>
+
+    <div class="col-md-4">
+      <input
+        type="password"
+        name="repetirContrasena"
+        [(ngModel)]="repetirContrasena"
+        class="form-control"
+        placeholder="Repetir Contraseña"
+        required
+        #repetirContrasenaInput="ngModel"
+      />
+      <div
+        *ngIf="
+          (repetirContrasenaInput.touched || formPaciente.submitted) &&
+          !contrasenasIguales()
+        "
+        class="text-danger small"
+      >
+        Las contraseñas no coinciden.
+      </div>
+    </div>
+
+    <div class="col-md-4">
+      <button
+        class="btn btn-secondary w-100"
+        type="submit"
+        [disabled]="
+          formPaciente.invalid || !contrasenasIguales()
+        "
+      >
+        Agregar
+      </button>
+    </div>
+  </form>
+
+  <div class="table-responsive">
+    <table class="table table-bordered align-middle text-center">
+      <thead class="table-light">
+        <tr>
+          <th>RUT</th>
+          <th>Nombres</th>
+          <th>Apellido</th>
+          <th>Correo</th>
+          <th>Teléfono</th>
+          <th>Acción</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let paciente of pacientes; let i = index">
+          <td>{{ paciente.rut }}</td>
+          <td>{{ paciente.nombres }}</td>
+          <td>{{ paciente.apellido }}</td>
+          <td>{{ paciente.correo }}</td>
+          <td>{{ paciente.telefono }}</td>
+          <td>
+            <button
+              type="button"
+              class="btn btn-sm btn-outline-danger"
+              (click)="eliminarPaciente(i)"
+            >
+              Eliminar
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

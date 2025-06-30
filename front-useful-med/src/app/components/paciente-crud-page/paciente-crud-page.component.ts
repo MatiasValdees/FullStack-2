@@ -1,6 +1,8 @@
+import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 
-export interface Paciente {
+interface Paciente {
   rut: string;
   nombres: string;
   apellido: string;
@@ -12,10 +14,11 @@ export interface Paciente {
 @Component({
   selector: 'app-paciente-crud-page',
   templateUrl: './paciente-crud-page.component.html',
-  styleUrls: ['./paciente-crud-page.component.css']
+  standalone: true,
+  imports: [FormsModule,CommonModule
+  ],
 })
 export class PacienteCrudPageComponent {
-  
   pacientes: Paciente[] = [];
 
   nuevoPaciente: Paciente = {
@@ -24,27 +27,35 @@ export class PacienteCrudPageComponent {
     apellido: '',
     correo: '',
     telefono: '',
-    contrasena: ''
+    contrasena: '',
   };
 
   repetirContrasena: string = '';
 
   agregarPaciente() {
-    if (this.nuevoPaciente.contrasena !== this.repetirContrasena) return;
+    if (!this.contrasenasIguales()) return;
 
     this.pacientes.push({ ...this.nuevoPaciente });
+    this.resetFormulario();
+  }
+
+  eliminarPaciente(index: number) {
+    this.pacientes.splice(index, 1);
+  }
+
+  contrasenasIguales(): boolean {
+    return this.nuevoPaciente.contrasena === this.repetirContrasena;
+  }
+
+  resetFormulario() {
     this.nuevoPaciente = {
       rut: '',
       nombres: '',
       apellido: '',
       correo: '',
       telefono: '',
-      contrasena: ''
+      contrasena: '',
     };
     this.repetirContrasena = '';
-  }
-
-  eliminarPaciente(index: number) {
-    this.pacientes.splice(index, 1);
   }
 }
