@@ -6,20 +6,33 @@ import { EspecialidadesCrudPageComponent } from './components/especialidades-cru
 import { ChangePasswordPageComponent } from './components/change-password-page/change-password-page.component';
 import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
 import { AdminComponent } from './components/admin/admin.component';
+import { DoctorLayoutComponent } from './layouts/doctor-layout/doctor-layout.component';
+import { DoctorComponent } from './components/doctor/doctor.component';
 
 export const routes: Routes = [
-    {path:'', redirectTo: 'login', pathMatch: 'full'},
-    {path: 'login', component:LoginComponent},
-    {path: 'recovery', component:RecoveryComponent},
-{
+  { path: '', redirectTo: 'login', pathMatch: 'full' },
+  { path: 'login', component: LoginComponent },
+  { path: 'recovery', component: RecoveryComponent },
+  {
     path: 'admin',
     component: AdminLayoutComponent,
     children: [
       { path: 'doctor-crud', component: DoctorCrudPageComponent },
-      { path: 'especialidades-crud', component: EspecialidadesCrudPageComponent },
+      {path: 'especialidades-crud',component: EspecialidadesCrudPageComponent},
       { path: 'cambiar-password', component: ChangePasswordPageComponent },
       { path: '', redirectTo: 'home', pathMatch: 'full' },
-      {path: 'home',component:AdminComponent}
-    ]
+      { path: 'home', component: AdminComponent },
+    ],
+  },
+    {
+    path: 'doctor',
+    component: DoctorLayoutComponent,
+    children: [
+      { path: 'pacientes-crud', component: DoctorCrudPageComponent },
+      { path: 'agenda',component: EspecialidadesCrudPageComponent},
+      { path: 'cambiar-password', component: ChangePasswordPageComponent },
+      { path: '', redirectTo: 'home', pathMatch: 'full' },
+      { path: 'home', component: DoctorComponent },
+    ],
   },
 ];
