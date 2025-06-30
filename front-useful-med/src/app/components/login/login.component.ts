@@ -34,9 +34,9 @@ export class LoginComponent {
       }else if(email.includes('doctor')) {
         console.log('Redirigiendo a doctor');
         this.router.navigate(['/doctor']);
-      }else if(email.includes('patient')) {
+      }else if(email.includes('paciente')) {
         console.log('Redirigiendo a patient');
-        this.router.navigate(['/patient']);
+        this.router.navigate(['/paciente']);
       }
     } else {
       console.log('Formulario inválido');

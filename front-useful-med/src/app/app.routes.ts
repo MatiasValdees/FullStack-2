@@ -10,6 +10,8 @@ import { DoctorLayoutComponent } from './layouts/doctor-layout/doctor-layout.com
 import { DoctorComponent } from './components/doctor/doctor.component';
 import { PacienteCrudPageComponent } from './components/paciente-crud-page/paciente-crud-page.component';
 import { AgendaComponent } from './components/agenda/agenda.component';
+import { PacienteComponent } from './components/paciente/paciente.component';
+import { PacienteLayoutComponent } from './layouts/paciente-layout/paciente-layout.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -37,4 +39,13 @@ export const routes: Routes = [
       { path: 'home', component: DoctorComponent },
     ],
   },
+  {
+    path:'paciente',
+    component:PacienteLayoutComponent,
+    children:[
+      { path: 'home',component:PacienteComponent},
+      { path: 'cambiar-password', component: ChangePasswordPageComponent },
+      { path: '', redirectTo: 'home', pathMatch: 'full' },
+    ]
+  }
 ];
