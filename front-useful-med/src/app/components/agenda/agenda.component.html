@@ -1,0 +1,92 @@
+<div class="container py-5">
+  <h2 class="mb-4 text-center">Calendario de Citas - Junio 2025</h2>
+
+  <div class="table-responsive">
+    <table class="table table-bordered calendar-table text-center">
+      <thead class="table-light">
+        <tr>
+          <th>Lun</th>
+          <th>Mar</th>
+          <th>Mié</th>
+          <th>Jue</th>
+          <th>Vie</th>
+          <th>Sáb</th>
+          <th>Dom</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let semana of diasMes">
+          <td *ngFor="let dia of semana" class="position-relative">
+            <div *ngIf="dia" class="dia-numero">{{ dia }}</div>
+            <button
+              *ngIf="dia !== null && obtenerCitaPorDia(dia)"
+              class="btn btn-sm btn-primary cita-btn"
+              type="button"
+              (click)="seleccionarCita(obtenerCitaPorDia(dia)!)"
+              data-bs-toggle="modal"
+              data-bs-target="#modalCita"
+            >
+              Ver Cita
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- Modal -->
+<div
+  class="modal fade"
+  id="modalCita"
+  tabindex="-1"
+  aria-labelledby="modalCitaLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content" *ngIf="citaSeleccionada || nuevaCita.dia">
+      <div class="modal-header">
+        <h5 class="modal-title" id="modalCitaLabel">
+          Cita - {{ citaSeleccionada?.dia }} Junio 2025
+        </h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Cerrar"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="mb-3">
+            <label class="form-label">Doctor</label>
+            <input
+              type="text"
+              class="form-control"
+              [value]="citaSeleccionada?.doctor"
+              disabled
+            />
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Hora</label>
+            <input
+              type="time"
+              class="form-control"
+              [value]="citaSeleccionada?.hora"
+              disabled
+            />
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Sala</label>
+            <input
+              type="text"
+              class="form-control"
+              [value]="citaSeleccionada?.sala"
+              disabled
+            />
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,20 @@
+<div class="container py-4">
+  <h2 class="mb-4 text-center">Mis citas</h2>
+  <div class="row g-3">
+    <div class="col-md-4" *ngFor="let cita of citas">
+      <div class="card h-100 shadow-sm">
+        <div class="card-body">
+          <h5 class="card-title">
+            {{ cita.dia }} {{ cita.mes }} {{ cita.anio }}
+          </h5>
+          <p class="card-text">
+            <strong>Doctor:</strong> {{ cita.doctor }}<br />
+            <strong>Hora:</strong> {{ cita.hora }}<br />
+            <strong>Sala:</strong> {{ cita.sala }}<br />
+            <strong>Paciente:</strong> {{ cita.paciente }}
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
