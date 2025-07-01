@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, NgForm } from '@angular/forms';
 
 interface Paciente {
   rut: string;
@@ -15,8 +15,7 @@ interface Paciente {
   selector: 'app-paciente-crud-page',
   templateUrl: './paciente-crud-page.component.html',
   standalone: true,
-  imports: [FormsModule,CommonModule
-  ],
+  imports: [FormsModule, CommonModule],
 })
 export class PacienteCrudPageComponent {
   pacientes: Paciente[] = [];
@@ -31,12 +30,22 @@ export class PacienteCrudPageComponent {
   };
 
   repetirContrasena: string = '';
+  error: string = '';
 
-  agregarPaciente() {
-    if (!this.contrasenasIguales()) return;
+  agregarPaciente(form: NgForm) {
+    if (!this.contrasenasIguales()) {
+      this.error = 'Las contraseñas no coinciden.';
+      return;
+    }
+
+    if (!this.contrasenaValida(this.nuevoPaciente.contrasena)) {
+      this.error = 'La contraseña debe tener entre 8 y 20 caracteres, incluir mayúsculas, minúsculas, un número y un carácter especial.';
+      return;
+    }
 
     this.pacientes.push({ ...this.nuevoPaciente });
-    this.resetFormulario();
+    this.error = '';
+    form.resetForm();
   }
 
   eliminarPaciente(index: number) {
@@ -47,15 +56,8 @@ export class PacienteCrudPageComponent {
     return this.nuevoPaciente.contrasena === this.repetirContrasena;
   }
 
-  resetFormulario() {
-    this.nuevoPaciente = {
-      rut: '',
-      nombres: '',
-      apellido: '',
-      correo: '',
-      telefono: '',
-      contrasena: '',
-    };
-    this.repetirContrasena = '';
+  contrasenaValida(contrasena: string): boolean {
+    const pattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{8,20}$/;
+    return pattern.test(contrasena);
   }
 }

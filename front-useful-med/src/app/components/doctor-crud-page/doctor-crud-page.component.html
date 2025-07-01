@@ -4,36 +4,83 @@
   <form [formGroup]="doctorForm" class="row g-3 mb-4" (ngSubmit)="agregarDoctor()">
     <div class="col-md-4">
       <input type="text" class="form-control" formControlName="rut" placeholder="RUT" />
+      <div class="text-danger small" *ngIf="doctorForm.get('rut')?.touched && doctorForm.get('rut')?.invalid">
+        <div *ngIf="doctorForm.get('rut')?.errors?.['required']">El RUT es obligatorio.</div>
+        <div *ngIf="doctorForm.get('rut')?.errors?.['minlength']">El RUT debe tener al menos 9 caracteres.</div>
+        <div *ngIf="doctorForm.get('rut')?.errors?.['maxlength']">El RUT no debe exceder los 10 caracteres.</div>
+      </div>
     </div>
+
     <div class="col-md-4">
       <input type="text" class="form-control" formControlName="nombres" placeholder="Nombres" />
+      <div class="text-danger small" *ngIf="doctorForm.get('nombres')?.touched && doctorForm.get('nombres')?.invalid">
+        <div *ngIf="doctorForm.get('nombres')?.errors?.['required']">El nombre es obligatorio.</div>
+      </div>
     </div>
+
     <div class="col-md-4">
       <input type="text" class="form-control" formControlName="apellidoPaterno" placeholder="Apellido Paterno" />
+      <div class="text-danger small" *ngIf="doctorForm.get('apellidoPaterno')?.touched && doctorForm.get('apellidoPaterno')?.invalid">
+        <div *ngIf="doctorForm.get('apellidoPaterno')?.errors?.['required']">El apellido paterno es obligatorio.</div>
+      </div>
     </div>
+
     <div class="col-md-4">
       <input type="text" class="form-control" formControlName="apellidoMaterno" placeholder="Apellido Materno" />
+      <div class="text-danger small" *ngIf="doctorForm.get('apellidoMaterno')?.touched && doctorForm.get('apellidoMaterno')?.invalid">
+        <div *ngIf="doctorForm.get('apellidoMaterno')?.errors?.['required']">El apellido materno es obligatorio.</div>
+      </div>
     </div>
+
     <div class="col-md-4">
       <input type="email" class="form-control" formControlName="correo" placeholder="Correo electrónico" />
+      <div class="text-danger small" *ngIf="doctorForm.get('correo')?.touched && doctorForm.get('correo')?.invalid">
+        <div *ngIf="doctorForm.get('correo')?.errors?.['required']">El correo es obligatorio.</div>
+        <div *ngIf="doctorForm.get('correo')?.errors?.['email']">Correo no válido.</div>
+      </div>
     </div>
+
     <div class="col-md-4">
       <input type="tel" class="form-control" formControlName="telefono" placeholder="Teléfono" />
+      <div class="text-danger small" *ngIf="doctorForm.get('telefono')?.touched && doctorForm.get('telefono')?.invalid">
+        <div *ngIf="doctorForm.get('telefono')?.errors?.['required']">El teléfono es obligatorio.</div>
+        <div *ngIf="doctorForm.get('telefono')?.errors?.['minlength']">Debe tener al menos 6 dígitos.</div>
+        <div *ngIf="doctorForm.get('telefono')?.errors?.['maxlength']">No debe exceder 9 dígitos.</div>
+      </div>
     </div>
+
     <div class="col-md-4">
       <select class="form-select" formControlName="especialidad">
         <option value="">Especialidad</option>
         <option *ngFor="let esp of especialidades" [value]="esp">{{ esp }}</option>
       </select>
+      <div class="text-danger small" *ngIf="doctorForm.get('especialidad')?.touched && doctorForm.get('especialidad')?.invalid">
+        <div *ngIf="doctorForm.get('especialidad')?.errors?.['required']">Debe seleccionar una especialidad.</div>
+      </div>
     </div>
-    <div class="col-md-4">
-      <input type="password" class="form-control" formControlName="password1" placeholder="Contraseña" />
+
+<div class="col-md-4">
+  <input type="password" class="form-control" formControlName="password1" placeholder="Contraseña" />
+  <div class="text-danger small" *ngIf="password1?.touched && password1?.invalid">
+    <div *ngIf="password1?.errors?.['required']">La contraseña es obligatoria.</div>
+    <div *ngIf="password1?.errors?.['minlength']">Debe tener al menos 8 caracteres.</div>
+    <div *ngIf="password1?.errors?.['maxlength']">No debe exceder los 20 caracteres.</div>
+    <div *ngIf="password1?.errors?.['pattern']">
+      Debe contener mayúsculas, minúsculas, número y carácter especial.
     </div>
+  </div>
+</div>
+
+<div class="col-md-4">
+  <input type="password" class="form-control" formControlName="passwordRepetida1" placeholder="Repetir Contraseña" />
+  <div class="text-danger small" *ngIf="passwordRepetida1?.touched && (passwordRepetida1?.invalid || doctorForm.errors?.['passwordsNoCoinciden'])">
+    <div *ngIf="passwordRepetida1?.errors?.['required']">Debe repetir la contraseña.</div>
+    <div *ngIf="doctorForm.errors?.['passwordsNoCoinciden']">Las contraseñas no coinciden.</div>
+  </div>
+</div>
+
     <div class="col-md-4">
-      <input type="password" class="form-control" formControlName="passwordRepetida1" placeholder="Repetir Contraseña" />
-    </div>
-    <div class="col-md-4">
-      <button class="btn btn-primary w-100" type="submit" [disabled]="doctorForm.invalid">Agregar</button>
+      <button class="btn btn-primary w-100" type="submit" >Agregar</button>
     </div>
   </form>
 
@@ -61,9 +108,7 @@
           <td>{{ doc.telefono }}</td>
           <td>{{ doc.especialidad }}</td>
           <td>
-            <button type="button" class="btn btn-sm btn-danger" (click)="eliminarDoctor(i)">
-              Eliminar
-            </button>
+            <button type="button" class="btn btn-sm btn-danger" (click)="eliminarDoctor(i)">Eliminar</button>
           </td>
         </tr>
       </tbody>

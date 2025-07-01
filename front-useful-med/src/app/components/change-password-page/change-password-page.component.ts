@@ -16,16 +16,24 @@ export class ChangePasswordPageComponent {
   mensaje = '';
 
   guardarCambios() {
+    this.error = '';
+    this.mensaje = '';
+
+    const passwordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{8,20}$/;
+
+    if (!passwordPattern.test(this.nuevaContrasena)) {
+      this.error = 'La nueva contraseña debe tener entre 8 y 20 caracteres, incluir mayúsculas, minúsculas, números y un carácter especial.';
+      return;
+    }
+
     if (this.nuevaContrasena !== this.repetirContrasena) {
       this.error = 'Las contraseñas nuevas no coinciden.';
-      this.mensaje = '';
       return;
-    }else{
-      this.error = '';
-      this.mensaje = 'Contraseña actualizada correctamente.';
-      this.contrasenaActual = '';
-      this.nuevaContrasena = '';
-      this.repetirContrasena = '';
     }
+
+    this.mensaje = 'Contraseña actualizada correctamente.';
+    this.contrasenaActual = '';
+    this.nuevaContrasena = '';
+    this.repetirContrasena = '';
   }
 }
